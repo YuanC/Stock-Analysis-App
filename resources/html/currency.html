@@ -6,8 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
 </head>
 <body>
+
   <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
     <div class="navbar-menu">
       <div class="navbar-start">
@@ -23,5 +26,51 @@
       </div>
     </div>
   </nav>
+
+  <div id="app">
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Currency Conversion</h1>
+        <progress class="progress is-small is-primary" max="100" v-show="!showResults"></progress>
+
+        <div class="field">
+          <label class="label">Value</label>
+          <div class="control">
+            <input class="input" type="number" min="0.01" step="0.01" placeholder="0">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Original Currency</label>
+          <div class="select">
+            <select>
+              <option>Select dropdown</option>
+              <option>With options</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">New Currency</label>
+          <div class="select">
+            <select>
+              <option>Select dropdown</option>
+              <option>With options</option>
+            </select>
+        </div>
+
+        <div class="field">
+          <label class="label">New Value</label>
+          <div class="control">
+            <input class="input" type="text" :value="convertedValue" readonly>
+          </div>
+        </div>
+
+        <h6 class="title is-6" v-show="showResults && companies.length === 0">Error Fetching Currencies</h1>
+      </div>
+    </section>
+  </div>
+
+  <script src="../js/company.js"></script>
 </body>
 </html>

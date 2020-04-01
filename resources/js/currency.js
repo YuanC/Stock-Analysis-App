@@ -1,12 +1,19 @@
 var app = new Vue({
   el: '#app',
   data: {
-    stockName: '',
+    amount: 0,
+    fromCurr: '',
+    toCurr: '',
     showResults: false,
-    companies: []
+    currencyRates: []
   },
+  computed:{
+    convertedValue: function(){
+      return this.amount * (this.currencyRates[toCurr]/this.currencyRates[fromCurr]);
+    }
+  }
   methods: {
-    fetchCompanies: function(){
+    fetchCurrencies: function(){
       setTimeout(() => {
         Vue.http.get('/').then(response => {
 
@@ -20,6 +27,6 @@ var app = new Vue({
     }
   },
   mounted: function(){
-    this.fetchCompanies();
+    this.fetchCurrencies();
   }
 })

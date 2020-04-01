@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Company Query</title>
+  <title>Company List</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
 </head>
 <body>
+
   <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
     <div class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item is-tab" href="index.html">Home</a>
+        <a class="navbar-item is-tab" href="../../index.html">Home</a>
         <a class="navbar-item is-tab" href="stock-query.html">Stock Query</a>
         <a class="navbar-item is-tab is-active" href="company.html">Company Query</a>
         <a class="navbar-item is-tab" href="flag-suspects.html">Flag Suspects</a>
@@ -23,5 +26,31 @@
       </div>
     </div>
   </nav>
+
+  <div id="app">
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Company List</h1>
+        <progress class="progress is-small is-primary" max="100" v-show="!showResults"></progress>
+        <table class="table is-hoverable is-striped" v-show="showResults && companies.length > 0">
+          <thead>
+            <tr>
+              <th>Company Name</th>
+              <th>Stock Ticker</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="company in companies"><!-- DO A V-FOR HERE!!! -->
+              <td>{{company.name}}</td>
+              <td>{{company.ticker}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h6 class="title is-6" v-show="showResults && companies.length === 0">No Results Found</h1>
+      </div>
+    </section>
+  </div>
+
+  <script src="../js/company.js"></script>
 </body>
 </html>

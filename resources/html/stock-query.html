@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stock Query</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+</head>
+<body>
+
+  <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item is-tab" href="../../index.html">Home</a>
+        <a class="navbar-item is-tab is-active" href="stock-query.html">Stock Query</a>
+        <a class="navbar-item is-tab" href="company.html">Company Query</a>
+        <a class="navbar-item is-tab" href="flag-suspects.html">Flag Suspects</a>
+        <a class="navbar-item is-tab" href="stock-analysis.html">Stock Analysis</a>
+        <a class="navbar-item is-tab" href="stock-visualization.html">Stock Visualization</a>
+        <a class="navbar-item is-tab" href="exchange-visualization.html">Exchange Visualization</a>
+        <a class="navbar-item is-tab" href="comparison.html">Company Comparison</a>
+        <a class="navbar-item is-tab" href="currency.html">Currency Conversion</a>
+      </div>
+    </div>
+  </nav>
+
+  <div id="app">
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Stock Query</h1>
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input class="input" type="text" placeholder="Stock ticker (e.g. AAPL)" v-model="stockName">
+          </div>
+          <div class="control">
+            <button class="button is-info" :disabled="stockName === ''" @click="queryStock">Query</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container">
+        <progress class="progress is-small is-primary" max="100" v-show="isFetching"></progress>
+        <table class="table is-hoverable is-striped" v-show="showResults && trades.length > 0">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Price</th>
+              <th>Size</th>
+              <th>Exchange</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="trade in trades">
+              <td>Yesterday</td>
+              <td>Lotta money</td>
+              <td>Lotta money</td>
+            </tr>
+          </tbody>
+        </table>
+        <h6 class="title is-6" v-show="showResults && trades.length === 0">No Results Found</h1>
+      </div>
+    </section>
+  </div>
+
+  <script src="../js/stock-query.js"></script>
+</body>
+</html>

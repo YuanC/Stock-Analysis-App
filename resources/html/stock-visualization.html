@@ -29,19 +29,20 @@
   <div id="app">
     <section class="section">
       <div class="container">
-        <h1 class="title">Stock Analysis</h1>
+        <h1 class="title">Stock Visualization</h1>
         <div class="field has-addons">
           <div class="control is-expanded">
             <input class="input" type="text" placeholder="Stock ticker (e.g. AAPL)" v-model="stockName">
           </div>
           <div class="control">
-            <button class="button is-info" :disabled="stockName === ''" @click="queryStock">Analyze</button>
+            <button class="button is-info" :disabled="stockName === ''" @click="queryStock">Visualize</button>
           </div>
         </div>
       </div>
 
 
       <div class="container">
+        <canvas id="myChart"></canvas>
         <progress class="progress is-small is-primary" max="100" v-show="isFetching"></progress>
         <div class="content" v-show="showResults && trades.length > 0">
           <!-- Total trades -->

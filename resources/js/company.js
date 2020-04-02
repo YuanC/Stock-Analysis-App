@@ -7,16 +7,16 @@ var app = new Vue({
   },
   methods: {
     fetchCompanies: function(){
-      setTimeout(() => {
-        Vue.http.get('/').then(response => {
+      Vue.http.get('https://848e4cc2.us-south.apigw.appdomain.cloud/companylist').then(response => {
 
-          // TODO: Fill out the table
-          this.showResults = true;
+        this.companies = response.body.entries;
+        // TODO: Fill out the table
+        this.showResults = true;
 
-        }, response => {
-          this.showResults = true;
-        });
-      }, 500);
+      // Error Handling
+      }, response => {
+        this.showResults = true;
+      });
     }
   },
   mounted: function(){

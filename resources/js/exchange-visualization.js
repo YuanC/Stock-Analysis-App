@@ -44,7 +44,7 @@ var app = new Vue({
 
         for(let i =  0; i < this.trades.length ; i++)
         {
-          data1[i] = this.trades[i].Price;
+          data1[i] = this.trades[i].Price/1000;
           data2[i] = (this.trades[i]["Time"]/60000).toFixed(2);
         }
 

@@ -33,7 +33,7 @@ var app = new Vue({
             data: {
               labels: data2,
               datasets: [{
-                label: data1[0].Company,
+                label: this.trades[0].Company,
                 data: data1,
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',

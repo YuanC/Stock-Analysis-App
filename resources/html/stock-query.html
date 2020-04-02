@@ -47,17 +47,24 @@
         <table class="table is-hoverable is-striped" v-show="showResults && trades.length > 0">
           <thead>
             <tr>
+              <th>Date</th>
               <th>Time</th>
               <th>Price</th>
               <th>Size</th>
               <th>Exchange</th>
+              <th>Sale Condition</th>
+              <th>Flagged Suspect</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="trade in trades">
-              <td>Yesterday</td>
-              <td>Lotta money</td>
-              <td>Lotta money</td>
+              <td>{{trade.Date | dateFormat}}</td>
+              <td>{{trade.Time | msToTime}}</td>
+              <td>${{trade.Price / 1000}}</td>
+              <td>{{trade.Size}}</td>
+              <td>{{trade.Exchange | symbolToExchange}}</td>
+              <td>{{trade["Sale Condition"]}}</td>
+              <td>{{trade.Suspicious}}</td>
             </tr>
           </tbody>
         </table>

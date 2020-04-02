@@ -31,7 +31,18 @@
     <section class="section">
       <div class="container">
         <h1 class="title">Company List</h1>
-        <progress class="progress is-small is-primary" max="100" v-show="!showResults"></progress>
+        <div class="container">
+          <div class="field has-addons">
+            <div class="control is-expanded">
+              <input class="input" type="text" placeholder="Stock ticker (e.g. AAPL)" v-model="stockName">
+            </div>
+            <div class="control">
+              <button class="button is-info" :disabled="stockName === ''" @click="fetchCompanies">Query</button>
+            </div>
+          </div>
+        </div>
+
+        <progress class="progress is-small is-primary" max="100" v-show="isFetching"></progress>
         <table class="table is-hoverable is-striped" v-show="showResults && companies.length > 0">
           <thead>
             <tr>

@@ -33,10 +33,10 @@
         <h1 class="title">Company Comparison</h1>
         <div class="field has-addons">
           <div class="control is-expanded">
-            <input class="input" type="text" placeholder="Company Name (e.g. Apple)" v-model="companyName1">
+            <input class="input" type="text" placeholder="Stock ticker (e.g. AAPL)" v-model="companyName1">
           </div>
           <div class="control is-expanded">
-            <input class="input" type="text" placeholder="Company Name (e.g. Apple)" v-model="companyName2">
+            <input class="input" type="text" placeholder="Stock ticker (e.g. AAPL)" v-model="companyName2">
           </div>
           <div class="control">
             <button class="button is-info" :disabled="companyName1 === '' || companyName2 === ''" @click="queryComparison">Visualize</button>

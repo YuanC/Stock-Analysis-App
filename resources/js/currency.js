@@ -17,19 +17,17 @@ var app = new Vue({
   },
   methods: {
     fetchCurrencies: function(){
-      setTimeout(() => {
-        Vue.http.get('https://848e4cc2.us-south.apigw.appdomain.cloud/currencyrates').then(response => {
+      Vue.http.get('https://848e4cc2.us-south.apigw.appdomain.cloud/currencyrates').then(response => {
 
-          this.currencyRates = {};
-          response.body.entries.forEach(entry => {
-            this.currencyRates[entry.country] = entry.rate;
-          });
-
-          this.showResults = true;
-        }, response => {
-          this.showResults = true;
+        this.currencyRates = {};
+        response.body.entries.forEach(entry => {
+          this.currencyRates[entry.country] = entry.rate;
         });
-      }, 500);
+
+        this.showResults = true;
+      }, response => {
+        this.showResults = true;
+      });
     }
   },
   mounted: function(){

@@ -9,17 +9,23 @@ var app = new Vue({
   },
   computed:{
     convertedValue: function(){
-      return this.amount * (this.currencyRates[toCurr]/this.currencyRates[fromCurr]);
+      if (this.toCurr != '' && this.fromCurr != ''){
+        return (this.amount * (this.currencyRates[this.toCurr]/this.currencyRates[this.fromCurr])).toFixed(2);
+      }
+      return 0;
     }
-  }
+  },
   methods: {
     fetchCurrencies: function(){
       setTimeout(() => {
-        Vue.http.get('/').then(response => {
+        Vue.http.get('https://848e4cc2.us-south.apigw.appdomain.cloud/currencyrates').then(response => {
 
-          // TODO: Fill out the table
+          this.currencyRates = {};
+          response.body.entries.forEach(entry => {
+            this.currencyRates[entry.country] = entry.rate;
+          });
+
           this.showResults = true;
-
         }, response => {
           this.showResults = true;
         });

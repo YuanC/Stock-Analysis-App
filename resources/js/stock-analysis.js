@@ -4,18 +4,25 @@ var app = new Vue({
     stockName: '',
     showResults: false,
     isFetching: false,
-    trades: []
+    min: 0,
+    max: 0,
+    sum: 0,
+    cnt: 0 
   },
   methods:{
     queryStock: function (){
       this.isFetching = true;
-      this.trades = [];
 
       setTimeout(() => {
-        Vue.http.get('/').then(response => {
+        Vue.http.post('https://848e4cc2.us-south.apigw.appdomain.cloud/stockanalysis/query', {"searchQuery": this.stockName}).then(response => {
 
           // TODO: Do the shit to analyse min/max, average
           // Heaviest days, etc...
+
+          this.min = response.body.entries.min;
+          this.max = response.body.entries.max;
+          this.sum = response.body.entries.sum;
+          this.cnt = response.body.entries.cnt;
 
           this.isFetching = false;
           this.showResults = true;

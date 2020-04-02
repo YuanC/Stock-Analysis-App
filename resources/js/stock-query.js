@@ -11,19 +11,17 @@ var app = new Vue({
       this.isFetching = true;
       this.trades = [];
 
-      setTimeout(() => {
-        Vue.http.post('https://848e4cc2.us-south.apigw.appdomain.cloud/stockquery/query', {"searchQuery": this.stockName}).then(response => {
+      Vue.http.post('https://848e4cc2.us-south.apigw.appdomain.cloud/stockquery/query', {"searchQuery": this.stockName}).then(response => {
 
-          this.trades = response.body.entries;
-          console.log(this.trades);
-          this.isFetching = false;
-          this.showResults = true;
+        this.trades = response.body.entries;
+        console.log(this.trades);
+        this.isFetching = false;
+        this.showResults = true;
 
-        }, response => {
-          this.isFetching = false;
-          this.showResults = true;
-        });
-      }, 500);
+      }, response => {
+        this.isFetching = false;
+        this.showResults = true;
+      });
     }
   },
   filters: {

@@ -11,9 +11,7 @@ var app = new Vue({
       this.isFetching = true;
       this.trades = [];
 
-      setTimeout(() => {
-        Vue.http.get('/').then(response => {
-
+      Vue.http.get('https://848e4cc2.us-south.apigw.appdomain.cloud/stockquery/query', {"searchQuery": this.stockName}).then(response => {
           // TODO: Fill out the table
           var ctx = document.getElementById('myChart');
           var chart = new Chart(ctx, {
@@ -28,25 +26,15 @@ var app = new Vue({
                 borderWidth: 1
               }]
             },
-            options: {
-              scales: {
-                yAxes: [{
-                  ticks: {
-                    beginAtZero: true
-                    }
-                  }]
-                }
-              },
-              responsive: true
-          });
-          this.isFetching = false;
-          this.showResults = true;
-
-        }, response => {
-          this.isFetching = false;
-          this.showResults = true;
+            responsive: true
         });
-      }, 500);
+        this.isFetching = false;
+        this.showResults = true;
+
+      }, response => {
+        this.isFetching = false;
+        this.showResults = true;
+      });
     }
   }
 })

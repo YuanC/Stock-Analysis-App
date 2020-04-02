@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
 </head>
 <body>
   <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
@@ -23,5 +26,34 @@
       </div>
     </div>
   </nav>
+
+  <div id="app">
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Company Comparison</h1>
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input class="input" type="text" placeholder="Company Name (e.g. Apple)" v-model="companyName1">
+          </div>
+          <div class="control is-expanded">
+            <input class="input" type="text" placeholder="Company Name (e.g. Apple)" v-model="companyName2">
+          </div>
+          <div class="control">
+            <button class="button is-info" :disabled="companyName1 === '' || companyName2 === ''" @click="queryComparison">Visualize</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <canvas id="lineChart"></canvas>
+        <progress class="progress is-small is-primary" max="100" v-show="isFetching"></progress>
+        <div class="content" v-show="showResults">
+        </div>
+        <!-- <h6 class="title is-6" v-show="showResults">No Results Found</h1> -->
+      </div>
+    </section>
+  </div>
+
+  <script src="../js/comparison.js"></script>
 </body>
 </html>

@@ -70,6 +70,12 @@ var app = new Vue({
         return exchanges[exch];
       }
       return '';
+    },
+    boolToYesNo: function(b){
+      if (b === "0" || b === 0 ){
+        return "No";
+      }
+      return "Yes";
     }
   }
 })

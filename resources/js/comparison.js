@@ -7,31 +7,36 @@ var app = new Vue({
     isFetching: false,
     prices: [],
     company1: [],
-    company2: []
+    company2: [],
+    chart: ''
   },
   methods:{
     queryComparison: function (){
       this.isFetching = true;
+      
+      if (this.chart != '') {
+        this.chart.destroy();
+      }
 
       Vue.http.post('https://848e4cc2.us-south.apigw.appdomain.cloud/stockquery/query', {"searchQuery": this.companyName1}).then(response => {
-        this.company1 = response.body.entries;
+        this.company1 = response.body.entries.reverse();
         console.log(this.company1);
 
         Vue.http.post('https://848e4cc2.us-south.apigw.appdomain.cloud/stockquery/query', {"searchQuery": this.companyName2}).then(response => {
-          this.company2 = response.body.entries;
+          this.company2 = response.body.entries.reverse();
 
           var data1 = [];
           var data2 = [];
           var data3 = [];
-          for(i = this.company1.length - 1; i >= 0 ; i--)
+          for(let i = 0; i < this.company1.length ; i++)
           {
             data1[i] = this.company1[i].Price/1000;
             data2[i] = this.company2[i].Price/1000;
-            data3[i] = (this.company1[i]["Time"]/3600000).toFixed(1);
+            data3[i] = (this.company1[i]["Time"]/60000).toFixed(2);
           }
 
           var ctx = document.getElementById('lineChart');
-          var chart = new Chart(ctx, {
+          this.chart = new Chart(ctx, {
             type: 'line',
             data: {
               datasets: [{

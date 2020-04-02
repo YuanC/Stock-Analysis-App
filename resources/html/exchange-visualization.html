@@ -17,6 +17,7 @@
         <a class="navbar-item is-tab" href="../../index.html">Home</a>
         <a class="navbar-item is-tab" href="stock-query.html">Stock Query</a>
         <a class="navbar-item is-tab" href="company.html">Company Query</a>
+        <a class="navbar-item is-tab" href="flag-suspects.html">Flag Suspects</a>
         <a class="navbar-item is-tab" href="stock-analysis.html">Stock Analysis</a>
         <a class="navbar-item is-tab" href="stock-visualization.html">Stock Visualization</a>
         <a class="navbar-item is-tab is-active" href="exchange-visualization.html">Exchange Visualization</a>
@@ -29,13 +30,14 @@
     <section class="section">
       <div class="container">
         <h1 class="title">Exchange Visualization</h1>
+        <label class="label">Select Stock Exchange</label>
         <div class="field has-addons">
-          <div class="control is-expanded">
-            <input class="input" type="text" placeholder="Stock ticker (e.g. AAPL)" v-model="stockName">
+          <div class="select">
+            <select v-model="selectedExch">
+              <option v-for="exch in Object.keys(exchanges)">{{exch}}</option>
+            </select>
           </div>
-          <div class="control">
-            <button class="button is-info" :disabled="stockName === ''" @click="queryStock">Visualize</button>
-          </div>
+          <button class="button is-info" :disabled="selectedExch === ''" @click="queryExchange">Visualize</button>
         </div>
       </div>
 
@@ -49,7 +51,7 @@
           <!-- Max val -->
           <!-- Average Val -->
         </div>
-        <h6 class="title is-6" v-show="showResults && trades.length === 0">No Results Found</h1>
+        <!-- <h6 class="title is-6" v-show="showResults && trades.length === 0">No Results Found</h1> -->
       </div>
     </section>
   </div>

@@ -4,31 +4,36 @@ var app = new Vue({
     stockName: '',
     showResults: false,
     isFetching: false,
-    trades: []
+    trades: [],
+    chart: ''
   },
   methods:{
     queryStock: function (){
       this.isFetching = true;
       this.trades = [];
+      
+      if (this.chart != '') {
+        this.chart.destroy();
+      }
 
       Vue.http.post('https://848e4cc2.us-south.apigw.appdomain.cloud/stockquery/query', {"searchQuery": this.stockName}).then(response => {
           // TODO: Fill out the table
 
           console.log(response.body.entries);
 
-          this.trades = response.body.entries;
+          this.trades = response.body.entries.reverse();
 
           var data1 = [];
-          var data2 = []
-          for(i = 0; i < this.trades.length; i++)
+          var data2 = [];
+
+          for(let i =  0; i < this.trades.length ; i++)
           {
             data1[i] = this.trades[i].Price;
-            data2[i] = i;
+            data2[i] = (this.trades[i]["Time"]/60000).toFixed(2);
           }
 
-
           var ctx = document.getElementById('stockVisualizationChart');
-          var chart = new Chart(ctx, {
+          this.chart = new Chart(ctx, {
             type: 'line',
             data: {
               labels: data2,

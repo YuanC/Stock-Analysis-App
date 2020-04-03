@@ -10,65 +10,66 @@
   <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
 </head>
 <body>
-  <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
-    <div class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item is-tab" href="../../index.html">Home</a>
-        <a class="navbar-item is-tab" href="stock-query.html">Stock Query</a>
-        <a class="navbar-item is-tab" href="company.html">Company Query</a>
-        <a class="navbar-item is-tab is-active" href="flag-suspects.html">Flag Suspects</a>
-        <a class="navbar-item is-tab" href="stock-analysis.html">Stock Analysis</a>
-        <a class="navbar-item is-tab" href="stock-visualization.html">Stock Visualization</a>
-        <a class="navbar-item is-tab" href="exchange-visualization.html">Exchange Visualization</a>
-        <a class="navbar-item is-tab" href="comparison.html">Company Comparison</a>
-        <a class="navbar-item is-tab" href="currency.html">Currency Conversion</a>
-      </div>
-    </div>
-  </nav>
   <div id="app">
-    <section class="section">
-      <div class="container">
-        <h1 class="title">Suspicious Trades</h1>
-        <div class="field has-addons">
-          <div class="control is-expanded">
-            <input class="input" type="text" placeholder="Stock ticker (e.g. AAPL)" v-model="stockName">
-          </div>
-          <div class="control">
-            <button class="button is-info" :disabled="stockName === ''" @click="queryStock">Query</button>
-          </div>
+    <nav id="navbar" class="navbar is-warning" role="navigation" aria-label="main navigation">
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item is-tab" href="../../index.html">Home</a>
+          <a class="navbar-item is-tab" v-if="registry['stock-query']" href="stock-query.html">Stock Query</a>
+          <a class="navbar-item is-tab" v-if="registry['company']" href="company.html">Company Query</a>
+          <a class="navbar-item is-tab is-active" v-if="registry['flag-suspects']" href="flag-suspects.html">Flag Suspects</a>
+          <a class="navbar-item is-tab" v-if="registry['stock-analysis']" href="stock-analysis.html">Stock Analysis</a>
+          <a class="navbar-item is-tab" v-if="registry['stock-visualization']" href="stock-visualization.html">Stock Visualization</a>
+          <a class="navbar-item is-tab" v-if="registry['exchange-visualization']" href="exchange-visualization.html">Exchange Visualization</a>
+          <a class="navbar-item is-tab" v-if="registry['comparison']" href="comparison.html">Company Comparison</a>
+          <a class="navbar-item is-tab" v-if="registry['currency']" href="currency.html">Currency Conversion</a>
         </div>
       </div>
+    </nav>
+    <div id="app">
+      <section class="section">
+        <div class="container">
+          <h1 class="title">Suspicious Trades</h1>
+          <div class="field has-addons">
+            <div class="control is-expanded">
+              <input class="input" type="text" placeholder="Stock ticker (e.g. AAPL)" v-model="stockName">
+            </div>
+            <div class="control">
+              <button class="button is-info" :disabled="stockName === ''" @click="queryStock">Query</button>
+            </div>
+          </div>
+        </div>
 
 
-      <div class="container">
-        <progress class="progress is-small is-primary" max="100" v-show="isFetching"></progress>
-        <table class="table is-hoverable is-striped" v-show="showResults && trades.length > 0">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Price</th>
-              <th>Size</th>
-              <th>Exchange</th>
-              <th>Flagged Suspect</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="trade in trades">
-              <td>{{trade.Date | dateFormat}}</td>
-              <td>{{trade.Time | msToTime}}</td>
-              <td>${{trade.Price / 1000}}</td>
-              <td>{{trade.Size}}</td>
-              <td>{{trade.Exchange | symbolToExchange}}</td>
-              <td>{{trade.Suspicious | boolToYesNo}}</td>
-            </tr>
-          </tbody>
-        </table>
-        <h6 class="title is-6" v-show="showResults && trades.length === 0">No Results Found</h1>
-      </div>
-    </section>
+        <div class="container">
+          <progress class="progress is-small is-primary" max="100" v-show="isFetching"></progress>
+          <table class="table is-hoverable is-striped" v-show="showResults && trades.length > 0">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Price</th>
+                <th>Size</th>
+                <th>Exchange</th>
+                <th>Flagged Suspect</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="trade in trades">
+                <td>{{trade.Date | dateFormat}}</td>
+                <td>{{trade.Time | msToTime}}</td>
+                <td>${{trade.Price / 1000}}</td>
+                <td>{{trade.Size}}</td>
+                <td>{{trade.Exchange | symbolToExchange}}</td>
+                <td>{{trade.Suspicious | boolToYesNo}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <h6 class="title is-6" v-show="showResults && trades.length === 0">No Results Found</h1>
+        </div>
+      </section>
+    </div>
   </div>
-
   <script src="../js/flag-suspects.js"></script>
 </body>
 </html>

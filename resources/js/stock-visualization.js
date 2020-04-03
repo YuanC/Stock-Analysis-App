@@ -5,7 +5,16 @@ var app = new Vue({
     showResults: false,
     isFetching: false,
     trades: [],
-    chart: ''
+    chart: '',
+    registry: {
+      "stock-query": false,
+      "company": false,
+      "flag-suspects": false,
+      "stock-analysis": false,
+      "stock-visualization": false,
+      "comparison": false,
+      "currency": false
+    }
   },
   methods:{
     queryStock: function (){
@@ -54,6 +63,17 @@ var app = new Vue({
         this.isFetching = false;
         this.showResults = true;
       });
+    },
+    fetchRegistry: function (){
+      Vue.http.get('https://848e4cc2.us-south.apigw.appdomain.cloud/registry').then(response => {
+
+        this.registry = response.body.registry;
+        console.log(this.registry);
+      }, response => {
+      });
     }
+  },
+  mounted: function(){
+    this.fetchRegistry();
   }
 })

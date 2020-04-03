@@ -11,51 +11,52 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
 </head>
 <body>
-  <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
-    <div class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item is-tab" href="../../index.html">Home</a>
-        <a class="navbar-item is-tab" href="stock-query.html">Stock Query</a>
-        <a class="navbar-item is-tab" href="company.html">Company Query</a>
-        <a class="navbar-item is-tab" href="flag-suspects.html">Flag Suspects</a>
-        <a class="navbar-item is-tab" href="stock-analysis.html">Stock Analysis</a>
-        <a class="navbar-item is-tab" href="stock-visualization.html">Stock Visualization</a>
-        <a class="navbar-item is-tab is-active" href="exchange-visualization.html">Exchange Visualization</a>
-        <a class="navbar-item is-tab" href="comparison.html">Company Comparison</a>
-        <a class="navbar-item is-tab" href="currency.html">Currency Conversion</a>
-      </div>
-    </div>
-  </nav>
   <div id="app">
-    <section class="section">
-      <div class="container">
-        <h1 class="title">Exchange Visualization</h1>
-        <label class="label">Select Stock Exchange</label>
-        <div class="field has-addons">
-          <div class="select">
-            <select v-model="selectedExch">
-              <option v-for="exch in Object.keys(exchanges)">{{exch}}</option>
-            </select>
+    <nav id="navbar" class="navbar is-warning" role="navigation" aria-label="main navigation">
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item is-tab" href="../../index.html">Home</a>
+          <a class="navbar-item is-tab" v-if="registry['stock-query']" href="stock-query.html">Stock Query</a>
+          <a class="navbar-item is-tab" v-if="registry['company']" href="company.html">Company Query</a>
+          <a class="navbar-item is-tab" v-if="registry['flag-suspects']" href="flag-suspects.html">Flag Suspects</a>
+          <a class="navbar-item is-tab" v-if="registry['stock-analysis']" href="stock-analysis.html">Stock Analysis</a>
+          <a class="navbar-item is-tab" v-if="registry['stock-visualization']" href="stock-visualization.html">Stock Visualization</a>
+          <a class="navbar-item is-tab is-active" v-if="registry['exchange-visualization']" href="exchange-visualization.html">Exchange Visualization</a>
+          <a class="navbar-item is-tab" v-if="registry['comparison']" href="comparison.html">Company Comparison</a>
+          <a class="navbar-item is-tab" v-if="registry['currency']" href="currency.html">Currency Conversion</a>
+        </div>
+      </div>
+    </nav>
+    <div id="app">
+      <section class="section">
+        <div class="container">
+          <h1 class="title">Exchange Visualization</h1>
+          <label class="label">Select Stock Exchange</label>
+          <div class="field has-addons">
+            <div class="select">
+              <select v-model="selectedExch">
+                <option v-for="exch in Object.keys(exchanges)">{{exch}}</option>
+              </select>
+            </div>
+            <button class="button is-info" :disabled="selectedExch === ''" @click="queryExchange">Visualize</button>
           </div>
-          <button class="button is-info" :disabled="selectedExch === ''" @click="queryExchange">Visualize</button>
         </div>
-      </div>
 
 
-      <div class="container">
-        <canvas id="exchangeVisualizationChart"></canvas>
-        <progress class="progress is-small is-primary" max="100" v-show="isFetching"></progress>
-        <div class="content" v-show="showResults && trades.length > 0">
-          <!-- Total trades -->
-          <!-- Min val -->
-          <!-- Max val -->
-          <!-- Average Val -->
+        <div class="container">
+          <canvas id="exchangeVisualizationChart"></canvas>
+          <progress class="progress is-small is-primary" max="100" v-show="isFetching"></progress>
+          <div class="content" v-show="showResults && trades.length > 0">
+            <!-- Total trades -->
+            <!-- Min val -->
+            <!-- Max val -->
+            <!-- Average Val -->
+          </div>
+          <!-- <h6 class="title is-6" v-show="showResults && trades.length === 0">No Results Found</h1> -->
         </div>
-        <!-- <h6 class="title is-6" v-show="showResults && trades.length === 0">No Results Found</h1> -->
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
-
   <script src="../js/exchange-visualization.js"></script>
 </body>
 </html>

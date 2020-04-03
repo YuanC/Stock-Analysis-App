@@ -6,27 +6,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
 </head>
 <body>
-  <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
-    <div class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item is-tab is-active" href="index.html">Home</a>
-        <a class="navbar-item is-tab" href="resources/html/stock-query.html">Stock Query</a>
-        <a class="navbar-item is-tab" href="resources/html/company.html">Company Query</a>
-        <a class="navbar-item is-tab" href="resources/html/flag-suspects.html">Flag Suspects</a>
-        <a class="navbar-item is-tab" href="resources/html/stock-analysis.html">Stock Analysis</a>
-        <a class="navbar-item is-tab" href="resources/html/stock-visualization.html">Stock Visualization</a>
-        <a class="navbar-item is-tab" href="resources/html/exchange-visualization.html">Exchange Visualization</a>
-        <a class="navbar-item is-tab" href="resources/html/comparison.html">Company Comparison</a>
-        <a class="navbar-item is-tab" href="resources/html/currency.html">Currency Conversion</a>
+  <div id="app">
+    <nav id="navbar" class="navbar is-warning" role="navigation" aria-label="main navigation">
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item is-tab is-active" href="index.html">Home</a>
+          <a class="navbar-item is-tab" v-if="registry['stock-query']" href="resources/html/stock-query.html">Stock Query</a>
+          <a class="navbar-item is-tab" v-if="registry['company']" href="resources/html/company.html">Company Query</a>
+          <a class="navbar-item is-tab" v-if="registry['flag-suspects']" href="resources/html/flag-suspects.html">Flag Suspects</a>
+          <a class="navbar-item is-tab" v-if="registry['stock-analysis']" href="resources/html/stock-analysis.html">Stock Analysis</a>
+          <a class="navbar-item is-tab" v-if="registry['stock-visualization']" href="resources/html/stock-visualization.html">Stock Visualization</a>
+          <a class="navbar-item is-tab" v-if="registry['exchange-visualization']" href="resources/html/exchange-visualization.html">Exchange Visualization</a>
+          <a class="navbar-item is-tab" v-if="registry['comparison']" href="resources/html/comparison.html">Company Comparison</a>
+          <a class="navbar-item is-tab" v-if="registry['currency']" href="resources/html/currency.html">Currency Conversion</a>
+        </div>
       </div>
-    </div>
-  </nav>
-  <section class="section">
-    <div class="container">
-      <h1 class="title">Welcome!</h1>
-    </div>
-  </section>
+    </nav>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Welcome! Here is the current service registry:</h1>
+        <div class="content">
+          <ul>
+            <li v-if="registry['stock-query']">Stock Query</li>
+            <li v-if="registry['company" >Company Query</li>
+            <li v-if="registry['flag-suspects']">Flag Suspects</li>
+            <li v-if="registry['stock-analysis']">Stock Analysis</li>
+            <li v-if="registry['stock-visualization']">Stock Visualization</li>
+            <li v-if="registry['exchange-visualization']">Exchange Visualization</li>
+            <li v-if="registry['comparison']">Company Comparison</li>
+            <li v-if="registry['currency']">Currency Conversion</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script src="resources/js/registry.js"></script>
 </body>
 </html>

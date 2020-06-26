@@ -18,8 +18,8 @@ function main(params) {
     
     return {
         "dbname": "sda",
-        "username": "e7241180-05e4-4ab8-8f36-8a1e4c6bb1fe-bluemix",
-        "password": "f62d2cf4622f818829ef44112311d749ad2399d1fdfc845c74286c203872b933",
+        "username": "",
+        "password": "",
         "query": {
            "selector": {
               "PERMTICK": {
